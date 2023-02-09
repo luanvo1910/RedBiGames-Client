@@ -1,19 +1,20 @@
-import {React, useState, useContext} from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import {Link, useHistory} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useState, useContext } from 'react'
 import {AuthContext} from '../../contexts/AuthContext'
+import AlertMessage from '../layout/AlertMessage'
 
 const Login = () => {
 
     const {loginUser} = useContext(AuthContext)
 
-    const history = useHistory()
-
     const [loginForm, setLoginForm] = useState({
         username: '',
         password: ''
     })
+
+    const [alert, setAlert] = useState(null)
 
     const {username, password} = loginForm
     
@@ -24,11 +25,10 @@ const Login = () => {
         
         try {
             const loginData = await loginUser(loginForm)     
-            if(loginData.success){
-                history.push('/')
-            }else{
-                
-            }
+            if(!loginData.success) {
+				setAlert({ type: 'danger', message: loginData.message })
+				setTimeout(() => setAlert(null), 5000)
+			}
         }catch(error){
             console.log(error)
         }       
@@ -37,8 +37,10 @@ const Login = () => {
   return(
   <>
     <Form className='my-4' onSubmit={login}>
+        <AlertMessage info={alert} />
         <Form.Group>
-            <Form.Control 
+            <Form.Control
+            className='my-2' 
             type='text' 
             placeholder='Username' 
             name='username'
@@ -48,7 +50,8 @@ const Login = () => {
             />
         </Form.Group>
         <Form.Group>
-            <Form.Control 
+            <Form.Control
+            className='my-2'
             type='password' 
             placeholder='Password' 
             name='password'
@@ -70,7 +73,7 @@ const Login = () => {
             <Button 
             variant='info' 
             size='sm' 
-            className='ml-2'>
+            className='m-2'>
                 Register
             </Button>    
         </Link>
