@@ -20,10 +20,10 @@ const AuthContextProvider = ({ children }) => {
 
 		try {
 			const response = await axios.get(`${apiUrl}/auth`)
-			if (response.data.success) {
+			if (response.data.success ) {
 				dispatch({
 					type: 'SET_AUTH',
-					payload: { isAuthenticated: true, user: response.data.user }
+					payload: { isAuthenticated: true, user: response.data.user}
 				})
 			}
 		} catch (error) {
@@ -36,7 +36,7 @@ const AuthContextProvider = ({ children }) => {
 		}
 	}
 
-	useEffect(() => loadUser(), [])
+	useEffect(() => {loadUser()}, [])
 
 	const loginUser = async userForm => {
 		try {
@@ -57,6 +57,7 @@ const AuthContextProvider = ({ children }) => {
 	}
 
 	const registerUser = async userForm => {
+		console.log(userForm)
 		try {
 			const response = await axios.post(`${apiUrl}/auth/register`, userForm)
 			if (response.data.success)
@@ -78,7 +79,7 @@ const AuthContextProvider = ({ children }) => {
 		localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
 		dispatch({
 			type: 'SET_AUTH',
-			payload: { isAuthenticated: false, user: null }
+			payload: { isAuthenticated: false, user: null, isAdmin: false }
 		})
 	}
 

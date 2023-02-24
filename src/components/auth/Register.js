@@ -73,7 +73,7 @@ const Register = () => {
                   className='my-2'
                   type='password' 
                   placeholder='Confirm Password' 
-                  name='confirmpassword'
+                  name='confirmPassword'
                   value={confirmPassword}
                   onChange={onChangeRegisterForm}
                   required/>

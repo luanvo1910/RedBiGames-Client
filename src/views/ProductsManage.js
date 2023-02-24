@@ -3,13 +3,20 @@ import { useContext, useEffect } from "react"
 import Spinner from 'react-bootstrap/Spinner'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import SingleProduct from '../components/products/Product'
+import Button from 'react-bootstrap/Button'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip  from 'react-bootstrap/Tooltip'
+import addIcon from '../assets/plus-circle-fill.svg'
+import SingleProduct from '../components/products/ProductManage'
+import AddProductModal from '../components/products/AddProductModal'
+import UpdateProductModal from "../components/products/UpdateProductModal"
 
 const Dashboard = () => {
   
   const {
     productState: {products, productLoading},
-    getProducts
+    getProducts,
+    setShowAddProduct
   } = useContext(ProductContext)
 
   useEffect(() => {getProducts()}, [])
@@ -42,6 +49,11 @@ const Dashboard = () => {
           </Col>
         ))}
       </Row>
+      <OverlayTrigger placement='left' overlay={<Tooltip>Add new product</Tooltip>}>
+        <Button className='btn-floating' onClick={setShowAddProduct.bind(this, true)}>
+            <img src={addIcon} alt="add product" witdh='60' height='60'/>
+        </Button>
+      </OverlayTrigger>
       </>
     )
   }
@@ -49,6 +61,8 @@ const Dashboard = () => {
   return (
     <>
     {body}
+    <AddProductModal />
+    <UpdateProductModal />
     </>
   )
 }

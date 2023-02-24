@@ -38,34 +38,32 @@
 	transform: translateX(-50%) translateY(-50%);
 }
 
-/* Post button */
-.post-button {
+.product-button {
 	padding-top: 0;
 	background: transparent;
 	border: none;
 }
 
-.post-button:hover {
+.product-button:hover {
 	background: transparent;
 }
 
-a.post-button.btn:focus,
-a.post-button.btn:active {
+a.product-button.btn:focus,
+a.product-button.btn:active {
 	outline: none;
 	background: transparent;
 	border: none;
 	box-shadow: none;
 }
 
-button.post-button.btn:focus,
-button.post-button.btn:active {
+button.product-button.btn:focus,
+button.product-button.btn:active {
 	outline: none;
 	background: transparent;
 	border: none;
 	box-shadow: none;
 }
 
-/* Floating add button */
 .btn-floating {
 	position: fixed;
 	right: 3rem;
@@ -86,7 +84,6 @@ button.post-button.btn:active {
 	box-shadow: none;
 }
 
-/* Add new post tooltip */
 .tooltip {
 	background: transparent;
 }
@@ -99,14 +96,12 @@ button.post-button.btn:active {
 	background: #78c2ad;
 }
 
-/* Post border thicker */
 .border-success,
 .border-warning,
 .border-danger {
 	border-width: 2px;
 }
 
-/* Post title */
-.post-title {
+.product-title {
 	margin-bottom: 0.5rem;
 }
