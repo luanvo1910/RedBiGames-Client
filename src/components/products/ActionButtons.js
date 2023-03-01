@@ -8,12 +8,12 @@ const ActionButtons = ({ _id}) => {
     const {
         deleteProduct,
         findProduct,
-        setShowUpdateProduct
+        setShowUpdateModal
     } = useContext(ProductContext)
 
     const chooseProduct = productId => {
         findProduct(productId)
-        setShowUpdateProduct(true)
+        setShowUpdateModal(true)
     }
 
     return (

@@ -5,16 +5,16 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {useContext, useState, useEffect} from 'react'
 import { ProductContext } from '../../contexts/ProductContext'
-import AlertMessage from '../layout/AlertMessage'
 
 const AddProductModal = () => {
     const {
-        showAddProduct,
-        setShowAddProduct,
+        showModal,
+        setShowModal,
         productState: {brands, categories},
         getBrands,
         getCategories,
-        addProduct
+        addProduct,
+        setShowToast
     } = useContext(ProductContext)
 
     const closeDialog = () => {
@@ -29,7 +29,7 @@ const AddProductModal = () => {
             image: "",
             stock: "",
         })
-        setShowAddProduct(false)
+        setShowModal(false)
     }
 
     useEffect(() =>  {getBrands()}, [])
@@ -38,8 +38,6 @@ const AddProductModal = () => {
 
     const [brandName, setBrandName] = useState(null)
     const [category, setCategory] = useState(null)
-    
-    const [alert, setAlert] = useState(null)
 
     const [newProduct, setNewProduct] = useState({
         name: "",
@@ -74,26 +72,22 @@ const AddProductModal = () => {
     const onSubmit = async event => {
         event.preventDefault()
         try {
-			const addProductData = await addProduct(newProduct)
-			if (!addProductData.success) {
-				setAlert({ type: 'danger', message: addProductData.message })
-				setTimeout(() => setAlert(null), 5000)
-			}
-            closeDialog()
+			const {success, message} = await addProduct(newProduct)
+            resetFormData()
+            setShowToast({ show: true, message, type: success ? 'success' : 'danger' })
 		} catch (error) {
 			console.log(error)
 		}
     }
 
   return (
-    <Modal show={showAddProduct} onHide={closeDialog}>
+    <Modal show={showModal} onHide={closeDialog}>
         <Modal.Header>
             <Modal.Title>
-                Add new prodduct
+                Add new product
             </Modal.Title>
         </Modal.Header>
         <Form key={_id} onSubmit={onSubmit}>
-            <AlertMessage info={alert} />
             <Modal.Body>
                 <Form.Group className='my-1'>
                     <Form.Control 

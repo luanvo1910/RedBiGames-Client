@@ -10,13 +10,15 @@ const ProductContextProvider = ({children}) => {
     const [productState, dispatch] = useReducer(productReducer, {
         product: null,
         products: [],
+        brand: null,
         brands: [],
+        singleCategory: null,
         categories: [],
         productLoading: true
     })
 
-    const [showAddProduct, setShowAddProduct] = useState(false)
-    const [showUpdateProduct, setShowUpdateProduct] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [showUpdateModal, setShowUpdateModal] = useState(false)
     const [showToast, setShowToast] = useState({
 		show: false,
 		message: '',
@@ -26,6 +28,17 @@ const ProductContextProvider = ({children}) => {
     const getProducts = async() => {
         try {
             const response = await axios.get(`${apiUrl}/products`)
+            if (response.data.success) {
+                dispatch({type: 'PRODUCTS_LOADED_SUCCESS', payload: response.data.products})
+            }
+        } catch (error) {
+            dispatch({type: 'PRODUCTS_LOADED_FAIL'})
+        }
+    }
+
+    const searchProducts = async query => {
+        try {
+            const response = await axios.get(`${apiUrl}/products/search?q=${query}`)
             if (response.data.success) {
                 dispatch({type: 'PRODUCTS_LOADED_SUCCESS', payload: response.data.products})
             }
@@ -64,7 +77,6 @@ const ProductContextProvider = ({children}) => {
 	}
 
 	const updateProduct = async updatedProduct => {
-        console.log(updatedProduct)
 		try {
 			const response = await axios.put(`${apiUrl}/products/update/${updatedProduct._id}`,updatedProduct)
 			if (response.data.success) {
@@ -89,6 +101,49 @@ const ProductContextProvider = ({children}) => {
         }
     }
 
+    const addBrand = async newBrand => {
+        try {
+            const response = await axios.post(`${apiUrl}/brands/create`, newBrand)
+            if (response.data.success) {
+                dispatch({type: 'BRAND_CREATED_SUCCESS', payload: response.data.brand})
+                return response.data
+            }
+        } catch (error) {
+            return error.response.data
+                ? error.response.data
+                : { success: false, message: "Server error" };
+        }
+    }
+
+    const deleteBrand = async brandId => {
+		try {
+			const response = await axios.delete(`${apiUrl}/brands/delete/${brandId}`)
+			if (response.data.success)
+				dispatch({ type: 'DELETE_BRAND', payload: brandId })
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const findBrand = brandId => {
+		const brand = productState.brands.find(brand => brand._id === brandId)
+		dispatch({ type: 'FIND_BRAND', payload: brand })
+	}
+
+	const updateBrand = async updatedBrand => {
+		try {
+			const response = await axios.put(`${apiUrl}/brands/update/${updatedBrand._id}`,updatedBrand)
+			if (response.data.success) {
+				dispatch({ type: 'UPDATE_BRAND', payload: response.data.brand })
+				return response.data
+			}
+		} catch (error) {
+			return error.response.data
+				? error.response.data
+				: { success: false, message: 'Server error' }
+		}
+	}
+
     const getCategories = async() => {
         try {
             const response = await axios.get(`${apiUrl}/categories`)
@@ -100,21 +155,73 @@ const ProductContextProvider = ({children}) => {
         }
     }
 
+    const addCategory = async newCategory => {
+        try {
+            const response = await axios.post(`${apiUrl}/categories/create`, newCategory)
+            if (response.data.success) {
+                dispatch({type: 'CATEGORIES_CREATED_SUCCESS', payload: response.data.category})
+                return response.data
+            }
+        } catch (error) {
+            return error.response.data
+                ? error.response.data
+                : { success: false, message: "Server error" };
+        }
+    }
+
+    const deleteCategory = async categoryId => {
+		try {
+			const response = await axios.delete(`${apiUrl}/categories/delete/${categoryId}`)
+			if (response.data.success)
+				dispatch({ type: 'DELETE_CATEGORIES', payload: categoryId })
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const findCategory = categoryId => {
+		const singleCategory = productState.categories.find(category => category._id === categoryId)
+		dispatch({ type: 'FIND_CATEGORIES', payload: singleCategory })
+	}
+
+	const updateCategory = async updatedCategory => {
+		try {
+			const response = await axios.put(`${apiUrl}/categories/update/${updatedCategory._id}`,updatedCategory)
+			if (response.data.success) {
+				dispatch({ type: 'UPDATE_CATEGORIES', payload: response.data.category })
+				return response.data
+			}
+		} catch (error) {
+			return error.response.data
+				? error.response.data
+				: { success: false, message: 'Server error' }
+		}
+	}
+
     const productContextData = {
         productState,
         getProducts,
-        getBrands,
-        getCategories,
         addProduct,
         findProduct,
         deleteProduct,
         updateProduct,
-        showAddProduct,
-        setShowAddProduct,
-        showUpdateProduct,
-        setShowUpdateProduct,
+        getBrands,
+        addBrand,
+        findBrand,
+        deleteBrand,
+        updateBrand,
+        getCategories,
+        addCategory,
+        findCategory,
+        deleteCategory,
+        updateCategory,
+        showModal,
+        setShowModal,
+        showUpdateModal,
+        setShowUpdateModal,
         showToast,
-        setShowToast
+        setShowToast,
+        searchProducts
     }
 
     return (

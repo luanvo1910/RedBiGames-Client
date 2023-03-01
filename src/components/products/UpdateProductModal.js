@@ -11,8 +11,8 @@ const UpdateProductModal = () => {
         productState: {product, brands, categories},
         getBrands,
         getCategories,
-        showUpdateProduct,
-        setShowUpdateProduct,
+        showUpdateModal,
+        setShowUpdateModal,
         updateProduct,
         setShowToast
     } = useContext(ProductContext)
@@ -32,7 +32,7 @@ const UpdateProductModal = () => {
 
 	const closeDialog = () => {
 		setUpdatedProduct(product)
-		setShowUpdateProduct(false)
+        setShowUpdateModal(false)
 	}
 
     const updateBrand = (id) => {
@@ -50,12 +50,12 @@ const UpdateProductModal = () => {
 	const onSubmit = async event => {
 		event.preventDefault()
 		const { success, message } = await updateProduct(updatedProduct)
-		setShowUpdateProduct(false)
+		setShowUpdateModal(false)
 		setShowToast({ show: true, message, type: success ? 'success' : 'danger' })
 	}
 
     return (
-        <Modal show={showUpdateProduct} onHide={closeDialog}>
+        <Modal show={showUpdateModal} onHide={closeDialog}>
             <Modal.Header>
                 <Modal.Title>
                     Update product information

@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
-import ActionButtons from '../layout/ActionButtons'
+import ActionButtons from './ActionButtons'
 
 const Product = ({product: {_id, name, price, image, stock }}) => (
     <Card className='shadow ' border={stock === 0 ? 'secondary' : 'info'}>

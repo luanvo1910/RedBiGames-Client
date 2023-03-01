@@ -4,7 +4,9 @@ import Logo from '../../assets/LogoRedBi.png'
 import logoutIcon from '../../assets/logout.svg'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
+import Search from './Search'
 import { AuthContext } from '../../contexts/AuthContext'
+import { ProductContext } from '../../contexts/ProductContext'
 import { useContext } from 'react'
 
 const NavBar = () => {
@@ -77,12 +79,6 @@ const NavBar = () => {
 		body = 
 		(
 			<>	
-				<Nav className='mx-2 my-2'>
-					<form className="d-flex" role="search">
-        				<input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        				<button className="btn btn-outline-success" type="submit">Search</button>
-      				</form>
-				</Nav>
 				<Button
 						variant='secondary'
 						className='font-weight-bolder text-white'
@@ -112,7 +108,6 @@ const NavBar = () => {
 			<Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
-				// className="btn btn-primary"
 				>
 				<Nav.Link
 					className='font-monospace fw-bolder fs-2 text-white mx-2'
@@ -125,11 +120,10 @@ const NavBar = () => {
 			<Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
-				// class="btn btn-primary"
 				>
 				<Nav.Link
 					className='font-monospace fw-bolder fs-2 text-white mx-2'
-					to='/games'
+					to='/admin/brands'
 					as={Link}
 					>
 					Brands
@@ -138,11 +132,10 @@ const NavBar = () => {
 			<Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
-				// className="btn btn-primary"
 				>
 				<Nav.Link
 					className='font-monospace fw-bolder fs-2 text-white mx-2'
-					to='/console'
+					to='/admin/categories'
 					as={Link}
 					>
 					Categories
@@ -156,7 +149,6 @@ const NavBar = () => {
 			<Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
-				// className="btn btn-primary"
 				>
 				<Nav.Link
 					className='font-monospace fw-bolder fs-2 text-white mx-2'
@@ -169,7 +161,6 @@ const NavBar = () => {
 			<Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
-				// className="btn btn-primary"
 				>
 				<Nav.Link
 					className='font-monospace fw-bolder fs-2 text-white mx-2'
@@ -182,7 +173,6 @@ const NavBar = () => {
 			<Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
-				// className="btn btn-primary"
 				>
 				<Nav.Link
 					className='font-monospace fw-bolder fs-2 text-white mx-2'
@@ -195,7 +185,6 @@ const NavBar = () => {
 			<Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
-				// className="btn btn-primary"
 				>
 				<Nav.Link
 					className='font-monospace fw-bolder fs-2 text-white mx-2'
@@ -205,11 +194,11 @@ const NavBar = () => {
 					Accessories
 				</Nav.Link>
 			</Button>
-			<Nav className="mx-4 my-2">
-				<form className="d-flex" role="search">
-					<input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
-					<button className="btn btn-outline-success" type="submit">Search</button>
-				</form>
+			<Nav className='mx-2 my-2'>
+				
+			</Nav>
+			<Nav>
+				<Search />
 			</Nav>
 		</>
 	)

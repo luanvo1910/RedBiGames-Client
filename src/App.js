@@ -12,6 +12,8 @@ import ProductContextProvider from './contexts/ProductContext';
 
 import Dashboard from './views/Dashboard'
 import ProductsManage from './views/ProductsManage'
+import BrandsManage from './views/BrandsManage'
+import CategoriesManage from './views/CategoriesManage'
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Switch>
             <PublicRoute exact path='/' component={Dashboard} />
             <AdminRoute exact path='/admin/products' component={ProductsManage} />
+            <AdminRoute exact path='/admin/brands' component={BrandsManage} />
+            <AdminRoute exact path='/admin/categories' component={CategoriesManage} />
             <Route exact path='/login' render={(props =><Auth {...props} authRoute='login' />)} />
             <Route exact path='/register' render={(props =><Auth {...props} authRoute='register' />)} />
             <PublicRoute exact path='/dashboard' component={Dashboard}/>

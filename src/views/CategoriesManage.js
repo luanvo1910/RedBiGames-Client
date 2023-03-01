@@ -1,60 +1,47 @@
 import { ProductContext } from "../contexts/ProductContext"
 import { useContext, useEffect } from "react"
-import Spinner from 'react-bootstrap/Spinner'
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip  from 'react-bootstrap/Tooltip'
 import Toast from 'react-bootstrap/Toast'
 import addIcon from '../assets/plus-circle-fill.svg'
-import SingleProduct from '../components/products/ProductManage'
-import AddProductModal from '../components/products/AddProductModal'
-import UpdateProductModal from "../components/products/UpdateProductModal"
+import SingleCategory from '../components/categories/Category'
+import AddCategoryModal from '../components/categories/AddCategoryModal'
+import UpdateCategoryModal from "../components/categories/UpdateCategoryModal"
 
 const Dashboard = () => {
   
   const {
-    productState: {product, products, productLoading},
-    getProducts,
+    productState: {categories, singleCategory},
+    getCategories,
     setShowModal,
     showToast: { show, message, type },
-		setShowToast
+	setShowToast
   } = useContext(ProductContext)
 
-  useEffect(() => {getProducts()}, [])
+  useEffect(() => {getCategories()}, [])
 
   let body = null
-  if (productLoading) {
-    body = (
-      <>
-      <div className='spinner-container'>
-				<Spinner animation='border' variant='info' />
-			</div>
-      </>
-    )
-  } else if (products.lenght === 0) {
+  if (categories.lenght === 0) {
     body = (
       <>
       <div className='text-center mx-5 my-5'>
-        <h1>Welcome to RedBi games</h1>
-        <h3>No produucts has been found</h3>
+        <h3>No category has been found</h3>
       </div>
       </>
     )
   } else {
     body = (
       <>
-      <Row className='row-cols-1 row-cols-md-3 g-4 mx-auto mt-3'>
-        {products.map(product => (
-          <Col key={product._id} className='my-2'>
-            <SingleProduct product={product} />
-          </Col>
-        ))}
-      </Row>
-      <OverlayTrigger placement='left' overlay={<Tooltip>Add new product</Tooltip>}>
+      {categories.map(category => (
+        <Col key={category._id} className='my-2'>
+          <SingleCategory category={category} />
+        </Col>
+      ))}
+      <OverlayTrigger placement='left' overlay={<Tooltip>Add new category</Tooltip>}>
         <Button className='btn-floating' onClick={setShowModal.bind(this, true)}>
-            <img src={addIcon} alt="add product" witdh='60' height='60'/>
+            <img src={addIcon} alt="add category" witdh='60' height='60'/>
         </Button>
       </OverlayTrigger>
       </>
@@ -64,9 +51,8 @@ const Dashboard = () => {
   return (
     <>
     {body}
-    <AddProductModal />
-    {/* <UpdateProductModal /> */}
-    {product !== null && <UpdateProductModal />}
+    <AddCategoryModal />
+    {singleCategory !== null && <UpdateCategoryModal />}
     <Toast
 				show={show}
 				style={{ position: 'fixed', top: '20%', right: '10px' }}
