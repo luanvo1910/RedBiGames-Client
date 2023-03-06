@@ -4,22 +4,16 @@ import { ProductContext } from "../../contexts/ProductContext";
 const SearchInput = () =>
 {
   const [search, setSearch] = useState("");
-  const { searchProducts } = useContext(ProductContext)
+  const { searchProducts, setSearchString } = useContext(ProductContext)
   return (
     <div>
         <form className="d-flex" role="search">
-    		<input 
-				className="form-control me-2" 
-				type="search" 
-				placeholder="Search product" 
-				aria-label="Search"
-				onChange={(e) => {setSearch(e.target.value)}}
-			/>
-    		<button 
-                className="btn btn-outline-success" 
-                type="submit" 
-                onClick={searchProducts(search)}
-            >Search</button>
+          <input 
+            className="form-control me-2" 
+            type="search" 
+            placeholder="Search product" 
+            aria-label="Search"
+            onChange={(e) => {setSearchString(e.target.value)}}/>
       	</form>
     </div>
   )

@@ -4,7 +4,7 @@ import ActionButtons from './ActionButtons'
 
 const Product = ({product: {_id, name, price, image, stock }}) => (
     <Card className='shadow ' border={stock === 0 ? 'secondary' : 'info'}>
-         <img 
+        <img 
                     src = {image}
                     className="mr-2"      
 					height='200'
@@ -15,7 +15,7 @@ const Product = ({product: {_id, name, price, image, stock }}) => (
                 <p className='product-title'>{name}</p>
             </Card.Title>
             <Card.Subtitle>
-                <p className='mb-2 text-muted'>{price}</p>
+                <p className='mb-2 text-muted'>{price} VND</p>
             </Card.Subtitle>
             <Badge pill variant={stock === 0 ? 'danger' : 'success'}>
                 Stock: {stock}

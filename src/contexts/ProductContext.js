@@ -24,6 +24,7 @@ const ProductContextProvider = ({children}) => {
 		message: '',
 		type: null
 	})
+    const [searchString, setSearchString] = useState("")
 
     const getProducts = async() => {
         try {
@@ -73,6 +74,7 @@ const ProductContextProvider = ({children}) => {
 
 	const findProduct = productId => {
 		const product = productState.products.find(product => product._id === productId)
+        // console.log(product)
 		dispatch({ type: 'FIND_PRODUCT', payload: product })
 	}
 
@@ -221,7 +223,9 @@ const ProductContextProvider = ({children}) => {
         setShowUpdateModal,
         showToast,
         setShowToast,
-        searchProducts
+        searchProducts,
+        searchString,
+        setSearchString
     }
 
     return (
