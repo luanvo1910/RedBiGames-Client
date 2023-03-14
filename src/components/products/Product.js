@@ -29,7 +29,7 @@ const Product = ({product: {_id, name, price, image, stock }}) => {
                 <p className='product-title'>{name}</p>
             </Card.Title>
             <Card.Subtitle>
-                <p className='mb-2 text-muted'>{price} VND</p>
+                <p className='mb-2 text-muted'>{price.toLocaleString()} VND</p>
             </Card.Subtitle>
             <Badge pill variant={stock === 0 ? 'danger' : 'success'}>
                 Stock: {stock}

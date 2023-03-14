@@ -1,19 +1,34 @@
 import { ProductContext } from "../contexts/ProductContext"
+import { AuthContext } from "../contexts/AuthContext"
+import { CartContext } from "../contexts/CartContext"
 import { useContext, useEffect } from "react"
 import Spinner from 'react-bootstrap/Spinner'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Toast from 'react-bootstrap/Toast'
 import SingleProduct from '../components/products/Product'
-import ProductDetailsModal from "../components/products/ProductDetailsModal"
+import ProductDetailsModal from '../components/products/ProductDetailsModal'
+import CartModal from '../components/cart/CartModal'
 
 const Dashboard = () => {
   
   const {
-    productState: {products, productLoading},
+    productState: {product, products, productLoading},
     getProducts,
     searchProducts,
     searchString
   } = useContext(ProductContext)
+
+  const {
+    showToast: { show, message, type },
+	  setShowToast
+  } = useContext(CartContext)
+
+  const {
+		authState: {
+			user
+		}
+	} = useContext(AuthContext)
 
   useEffect(() => {
     if (searchString != null) {
@@ -57,7 +72,24 @@ const Dashboard = () => {
   return (
     <>
     {body}
-    {/* <ProductDetailsModal/> */}
+    {product !== null && <ProductDetailsModal/>}
+    {user !== null && <CartModal/>}
+    <Toast
+      show={show}
+      style={{ position: 'fixed', top: '20%', right: '10px' }}
+      className={`bg-${type} text-white`}
+      onClose={setShowToast.bind(this, {
+        show: false,
+        message: '',
+        type: null
+      })}
+      delay={3000}
+      autohide
+	  >
+      <Toast.Body>
+        <strong>{message}</strong>
+      </Toast.Body>
+	  </Toast>
     </>
   )
 }

@@ -1,29 +1,40 @@
-import {useContext, useEffect} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import { ProductContext } from '../../contexts/ProductContext'
+import { CartContext } from '../../contexts/CartContext'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 const ProductDetailsModal = () => {
     const {
-        productState: {product, brands, categories},
+        productState: {product,
+            brands, 
+            categories},
         getBrands,
         getCategories,
         showModal,
         setShowModal
     } = useContext(ProductContext)
 
+    const {
+        addProduct
+    } = useContext(CartContext)
+
+    const [showProduct, setShowProduct] = useState(product)
+    useEffect(() => setShowProduct(product), [product])
+    const { name, decription, price, image, brand, category } = showProduct
+
     useEffect(() =>  {getBrands()}, [])
     useEffect(() => {getCategories()}, [])
 
-    const brand = brands.map( b => {
-        if(b._id === product.brand)
+    const brandName = brands.map( b => {
+        if(b._id === brand)
         {
             return b.name
         }
     })
 
-    const category = categories.map( c => {
-        if(c._id === product.category)
+    const categoryName = categories.map( c => {
+        if(c._id === category)
         {
             return c.category
         }
@@ -33,19 +44,24 @@ const ProductDetailsModal = () => {
         setShowModal(false)
 	}
 
+    const addProductToCart = product => {
+        addProduct(product)
+        setShowModal(false)
+    }
+
     return (
         <Modal show={showModal} onHide={closeDialog}>
             <Modal.Header>
                 <Modal.Title>
                     <h1>
-                        {product.name}
+                        {name}
                     </h1>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div>
                     <img 
-                    src = {product.image}
+                    src = {image}
                     className="mr-auto"      
                     height='100'
                     alt='product image'
@@ -53,18 +69,18 @@ const ProductDetailsModal = () => {
                 </div>
                 <div>
                     <h5>
-                        {product.decription}
+                        {decription}
                     </h5>
                     <p>
-                        Its a {category} from {brand}
+                        Its a {categoryName} from {brandName}
                     </p>
                 </div>
             </Modal.Body>
             <Modal.Footer>
                 <h3>
-                    Price: {product.price} VND
+                    Price: {price} VND
                 </h3>
-                <Button variant='secondary'>
+                <Button variant='secondary' onClick={addProductToCart.bind(this, product)}>
                     Add to cart
                 </Button>
             </Modal.Footer>

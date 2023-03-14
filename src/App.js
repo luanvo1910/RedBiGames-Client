@@ -14,11 +14,13 @@ import Dashboard from './views/Dashboard'
 import ProductsManage from './views/ProductsManage'
 import BrandsManage from './views/BrandsManage'
 import CategoriesManage from './views/CategoriesManage'
+import CartContextProvider from './contexts/CartContext';
 
 function App() {
   return (
   <AuthContextProvider>
     <ProductContextProvider>
+      <CartContextProvider>
         <Router>
           <Switch>
             <PublicRoute exact path='/' component={Dashboard} />
@@ -30,6 +32,7 @@ function App() {
             <PublicRoute exact path='/dashboard' component={Dashboard}/>
           </Switch>
         </Router>
+      </CartContextProvider>
     </ProductContextProvider>
   </AuthContextProvider>
   )

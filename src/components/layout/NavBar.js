@@ -5,8 +5,8 @@ import logoutIcon from '../../assets/logout.svg'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 import Search from './Search'
+import Cart from './Cart'
 import { AuthContext } from '../../contexts/AuthContext'
-import { ProductContext } from '../../contexts/ProductContext'
 import { useContext } from 'react'
 
 const NavBar = () => {
@@ -18,7 +18,7 @@ const NavBar = () => {
 		logoutUser
 	} = useContext(AuthContext)
 
-	console.log(AuthContext)
+	// console.log(AuthContext)
 
 	const logout = () => logoutUser()
 
@@ -55,6 +55,7 @@ const NavBar = () => {
 		(
 			<>	
 				<Nav className="position-absolute top-10 end-0">		
+					<Cart user={user}/>
 					<Button
 						variant='secondary'
 						className='font-weight-bolder text-white'
@@ -158,7 +159,7 @@ const NavBar = () => {
 					Home
 				</Nav.Link>
 			</Button>
-			<Button
+			{/* <Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"
 				>
@@ -193,7 +194,7 @@ const NavBar = () => {
 					>
 					Accessories
 				</Nav.Link>
-			</Button>
+			</Button> */}
 			<Nav className='mx-2 my-2'>
 				
 			</Nav>

@@ -17,7 +17,7 @@ const Dashboard = () => {
     getCategories,
     setShowModal,
     showToast: { show, message, type },
-	setShowToast
+	  setShowToast
   } = useContext(ProductContext)
 
   useEffect(() => {getCategories()}, [])
@@ -64,11 +64,11 @@ const Dashboard = () => {
 				})}
 				delay={3000}
 				autohide
-			>
+		>
 				<Toast.Body>
 					<strong>{message}</strong>
 				</Toast.Body>
-			</Toast>
+		</Toast>
     </>
   )
 }
