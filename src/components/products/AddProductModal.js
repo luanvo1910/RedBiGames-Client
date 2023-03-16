@@ -1,6 +1,8 @@
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {useContext, useState, useEffect} from 'react'
@@ -24,7 +26,7 @@ const AddProductModal = () => {
     const resetFormData = () => {
         setNewProduct({
             name: "",
-            decription: "",
+            description: "",
             price: "",
             image: "",
             stock: "",
@@ -33,15 +35,16 @@ const AddProductModal = () => {
     }
 
     useEffect(() =>  {getBrands()}, [])
-
     useEffect(() => {getCategories()}, [])
 
-    const [brandName, setBrandName] = useState(null)
-    const [category, setCategory] = useState(null)
+    const [brandName, setBrandName] = useState("choose Brand")
+    const [brandId, setBrandId] = useState(null)
+    const [categoryName, setCategoryName] = useState("choose Category")
+    const [categoryId, setCategoryId] = useState(null)
 
     const [newProduct, setNewProduct] = useState({
         name: "",
-        decription: "",
+        description: "",
         price: "",
         image: "",
         stock: "",
@@ -49,30 +52,28 @@ const AddProductModal = () => {
         category: "",
     })
 
-    const {_id, name, decription, price, image, stock } = newProduct
+    const {_id, name, description, price, image, stock, brand, category } = newProduct
 
-    const onChangeNewProduct = event => 
-        setNewProduct({ 
-            ...newProduct, 
-            [event.target.name]: event.target.value
-        })
+    const onChangeNewProduct = (event) => 
+        setNewProduct({ ...newProduct, [event.target.name]: event.target.value })
 
-    const updateBrand = (id) => {
-        setNewProduct(b => {
-            return { ...b, brand: id}
-        })
-    }
+    const onChangeNewImage = (event) =>
+        setNewProduct({ ...newProduct, image: event.target.files[0] });
 
-    const updateCategory = (id) => {
-        setNewProduct(c => {
-            return { ...c, category: id}
-        })
-    }
-
-    const onSubmit = async event => {
+    const onSubmit = async (event) => {
+        console.log(newProduct)
         event.preventDefault()
+        const formData = new FormData()
+            formData.append("name", name)
+            formData.append("description", description)
+            formData.append("price", price)
+            formData.append("stock", stock)
+            formData.append("image", image, image.name)
+            formData.append("brand", brandId)
+            formData.append("category", categoryId)
+
         try {
-			const {success, message} = await addProduct(newProduct)
+			const {success, message} = await addProduct(formData)
             resetFormData()
             setShowToast({ show: true, message, type: success ? 'success' : 'danger' })
 		} catch (error) {
@@ -102,8 +103,8 @@ const AddProductModal = () => {
                     as='textarea'
                     placeholder='description' 
                     rows={3}
-                    name='decription'
-                    value={decription}
+                    name='description'
+                    value={description}
                     onChange={onChangeNewProduct}/>
                 </Form.Group>
                 <Form.Group className='my-1'>
@@ -116,71 +117,73 @@ const AddProductModal = () => {
                 </Form.Group>
                 <Form.Group className='my-1'>
                     <Form.Control 
-                    type='text'
-                    placeholder='image url' 
-                    name='image'
-                    value={image}
-                    onChange={onChangeNewProduct}/>
-                </Form.Group>
-                <Form.Group className='my-1'>
-                    <Form.Control 
                     type='number'
                     placeholder='stock' 
                     name='stock'
                     value={stock}
                     onChange={onChangeNewProduct}/>
                 </Form.Group>
-                <Form.Group style={{ display: "flex", marginTop: "3rem" }}>
-                    <div style={{ fontSize: "20px" }}>Brand: </div>
-                    <DropdownButton
-                        style={{ marginLeft: "20px" }}
-                        title={brandName}
-                        type="file"
-                    >
-                        {brands.map((item) => {
-                            return (
-                                <>
-                                <div key={item._id}>
-                                    <div key={item._id}>
-                                        <div onClick={() => setBrandName(item.name)}>
-                                            <Dropdown.Item
-                                                onClick={() => updateBrand(item._id)}
-                                            >
-                                                {item.name}
-                                            </Dropdown.Item>
+                <Row>
+                    <Col>
+                        <Form.Group style={{ display: "flex", marginTop: "3rem" }}>
+                            <div style={{ fontSize: "20px" }}>Brand: </div>
+                            <DropdownButton
+                                style={{ marginLeft: "20px" }}
+                                title={brandName}
+                                type="file"
+                                >
+                                {brands.map((item) => {
+                                    return (
+                                        <>
+                                        <div key={item._id}>
+                                            <div onClick={() => setBrandName(item.name)}>
+                                                <Dropdown.Item
+                                                    onClick={() => setBrandId(item._id)}
+                                                    >
+                                                    {item.name}
+                                                </Dropdown.Item>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                </>
-                            );
-                        })}
-                    </DropdownButton>
-                </Form.Group>
-                <Form.Group style={{ display: "flex", marginTop: "3rem" }}>
-                    <div style={{ fontSize: "20px" }}>Category: </div>
-                    <DropdownButton
-                        style={{ marginLeft: "20px" }}
-                        title={category}
-                        type="file"
-                    >
-                        {categories.map((item) => {
-                            return (
-                                <>
-                                <div key={item._id}>
-                                    <div key={item._id}>
-                                        <div onClick={() => setCategory(item.category)}>
-                                            <Dropdown.Item
-                                                onClick={() => updateCategory(item._id)}
-                                            >
-                                                {item.category}
-                                            </Dropdown.Item>
+                                        </>
+                                    );
+                                })}
+                            </DropdownButton>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group style={{ display: "flex", marginTop: "3rem" }}>
+                            <div style={{ fontSize: "20px" }}>Category: </div>
+                            <DropdownButton
+                                style={{ marginLeft: "20px" }}
+                                title={categoryName}
+                                type="file"
+                                >
+                                {categories.map((item) => {
+                                    return (
+                                        <>
+                                        <div key={item._id}>
+                                            <div onClick={() => setCategoryName(item.category)}>
+                                                <Dropdown.Item
+                                                    onClick={() => setCategoryId(item._id)}
+                                                    >
+                                                    {item.category}
+                                                </Dropdown.Item>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                </>
-                            );
-                        })}
-                    </DropdownButton>
+                                        </>
+                                    );
+                                })}
+                            </DropdownButton>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Form.Group style={{ display: "flex", marginTop: "3rem" }}>
+                    <input
+                        type="file"
+                        placeholder="Upload file"
+                        name="image"
+                        onChange={onChangeNewImage}
+                    />
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>

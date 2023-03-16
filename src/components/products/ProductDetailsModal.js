@@ -21,7 +21,7 @@ const ProductDetailsModal = () => {
 
     const [showProduct, setShowProduct] = useState(product)
     useEffect(() => setShowProduct(product), [product])
-    const { name, decription, price, image, brand, category } = showProduct
+    const { name, description, price, image, brand, category } = showProduct
 
     useEffect(() =>  {getBrands()}, [])
     useEffect(() => {getCategories()}, [])
@@ -69,10 +69,10 @@ const ProductDetailsModal = () => {
                 </div>
                 <div>
                     <h5>
-                        {decription}
+                        Its a {categoryName} from {brandName}  
                     </h5>
                     <p>
-                        Its a {categoryName} from {brandName}
+                        {description}
                     </p>
                 </div>
             </Modal.Body>

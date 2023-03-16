@@ -50,7 +50,8 @@ const ProductContextProvider = ({children}) => {
 
     const addProduct = async newProduct => {
         try {
-            const response = await axios.post(`${apiUrl}/products/create`, newProduct)
+            console.log(newProduct)
+            const response = await axios.post(`${apiUrl}/products/create`, newProduct, { headers: { "Content-Type": "multipart/form-data" } })
             if (response.data.success) {
                 dispatch({type: 'PRODUCTS_CREATED_SUCCESS', payload: response.data.product})
                 return response.data
@@ -80,7 +81,7 @@ const ProductContextProvider = ({children}) => {
 
 	const updateProduct = async updatedProduct => {
 		try {
-			const response = await axios.put(`${apiUrl}/products/update/${updatedProduct._id}`,updatedProduct)
+			const response = await axios.put(`${apiUrl}/products/update/${updatedProduct._id}`, updatedProduct, { headers: { "Content-Type": "multipart/form-data" } })
 			if (response.data.success) {
 				dispatch({ type: 'UPDATE_PRODUCT', payload: response.data.product })
 				return response.data

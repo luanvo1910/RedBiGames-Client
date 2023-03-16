@@ -18,6 +18,12 @@ const Product = ({product: {_id, name, price, image, stock }}) => {
     return (
     <>
     <Card className='shadow ' border={stock === 0 ? 'secondary' : 'info'}>
+        {/* <Card.img 
+            variant="top"
+            style={{ borderRadius: "20px 20px 0px 0px" }}
+            height={300}
+            width={180}
+            src={image}/> */}
         <img 
             src = {image}
             className="mr-2"      
