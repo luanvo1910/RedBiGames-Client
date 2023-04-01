@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import SingleProduct from './ProductInCart'
+import {Link} from 'react-router-dom'
 
 const CartModal = () => {
     const {
@@ -68,9 +69,11 @@ const CartModal = () => {
                         Total: {total.toLocaleString()} VND
                     </h3>
                 </Row>
-                <Button variant='secondary'>
-                    Checkout
-                </Button>
+                <Link to='/checkout'>
+                    <Button variant='secondary'>
+                        Checkout
+                    </Button>
+                </Link>
             </Modal.Footer>
         </Modal>
     )

@@ -71,7 +71,7 @@ const AddProductModal = () => {
             formData.append("image", image, image.name)
             formData.append("brand", brandId)
             formData.append("category", categoryId)
-
+        console.log(formData)
         try {
 			const {success, message} = await addProduct(formData)
             resetFormData()
