@@ -171,6 +171,18 @@ const NavBar = () => {
 					Home
 				</Nav.Link>
 			</Button>
+			<Button
+				className="mx-1 my-2 btn btn-primary"
+				type="button"
+				>
+				<Nav.Link
+					className='font-monospace fw-bolder fs-2 text-white mx-2'
+					to='/orders'
+					as={Link}
+					>
+					Orders
+				</Nav.Link>
+			</Button>
 			{/* <Button
 				className="mx-1 my-2 btn btn-primary"
 				type="button"

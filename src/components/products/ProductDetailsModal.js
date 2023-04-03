@@ -78,7 +78,7 @@ const ProductDetailsModal = () => {
             </Modal.Body>
             <Modal.Footer>
                 <h3>
-                    Price: {price} VND
+                    Price: {price.toLocaleString()} VND
                 </h3>
                 <Button variant='secondary' onClick={addProductToCart.bind(this, product)}>
                     Add to cart

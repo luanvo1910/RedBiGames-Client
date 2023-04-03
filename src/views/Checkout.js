@@ -6,7 +6,7 @@ import { AuthContext } from '../contexts/AuthContext'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
-import SingleProduct from '../components/Order/ProductOrder'
+import SingleProduct from '../components/Order/ProductInOrder'
 import OrderComfirm from '../components/Order/OrderComfirmModal'
 
 const Checkout = () => {
@@ -27,10 +27,9 @@ const Checkout = () => {
     } = useContext(ProductContext)
 
     const {
+        orderState: {order},
         addOrder,
-        showModal,
         setShowModal,
-        showToast,
         setShowToast
     } = useContext(OrderContext)
 
@@ -65,30 +64,32 @@ const Checkout = () => {
 
     const onChangeAddress = event =>
         setAddress(event.target.value)
-    
+
     const onSubmit = async (event) => {
-        event.preventDefault()
-        setCheckoutForm({ ...checkoutForm,
-            userId: user._id,
-            total: totalPrice,
-            email: email,
-            address: address,
-            products: productsId
-        })
-        console.log(checkoutForm)
-        try {
-            const {success, message} = await addOrder(checkoutForm)
-            setShowModal(true)
-            setShowToast({ show: true, message, type: success ? 'success' : 'danger' })
-        } catch (error) {
-            console.log(error)
+        if (totalPrice > 0){
+            setCheckoutForm({ ...checkoutForm,
+                userId: user._id,
+                total: totalPrice,
+                email: email,
+                address: address,
+                products: productsId
+            })
+            event.preventDefault()
+            try {
+                console.log(checkoutForm)
+                const {success, message} = await addOrder(checkoutForm)
+                setShowModal(true)
+                setShowToast({ show: true, message, type: success ? 'success' : 'danger' })
+            } catch (error) {
+                console.log(error)
+            }
         }
     }    
 
     return (
         <>
-        <OrderComfirm/>
-        <h1>CHECKOUT {user.username} ORDER</h1>
+        {order !== null && <OrderComfirm/>}
+        <h1>CHECKOUT {user.username.toUpperCase()} ORDER</h1>
         <Row>
             {productsInCart.map(product => (
                 <Row key={product._id} className='my-2'>
@@ -108,7 +109,7 @@ const Checkout = () => {
                     type='text' 
                     placeholder='Email' 
                     name='email'
-                    value={email}
+                    value={email || ''}
                     onChange={onChangeEmail} 
                     required/>
             </Form.Group>
@@ -118,7 +119,7 @@ const Checkout = () => {
                     type='text' 
                     placeholder='Address - house number, street, district, city' 
                     name='address'
-                    value={address}
+                    value={address || ''}
                     onChange={onChangeAddress} 
                     required/>
             </Form.Group>

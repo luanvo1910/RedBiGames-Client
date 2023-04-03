@@ -7,6 +7,7 @@ export const OrderContext = createContext()
 
 const OrderContextProvider = ({children}) => {
     const [orderState, dispatch] = useReducer(orderReducer, {
+        orderId: "",
         order: null,
         orders: []
     })
@@ -29,10 +30,10 @@ const OrderContextProvider = ({children}) => {
         }
     }
 
-    const userList = async () => {
+    const getUserOrders = async () => {
         try {
             const response = await axios.get(`${apiUrl}/order/user`)
-            if (response.data.loaded) {
+            if (response.data.success) {
                 dispatch({type: 'ORDER_LOADED_SUCCESS', payload: response.data.orders})
             }
         } catch (error) {
@@ -47,10 +48,25 @@ const OrderContextProvider = ({children}) => {
 
     const addOrder = async newOrder => {
         try {
-            console.log(newOrder)
             const response = await axios.post(`${apiUrl}/order/add`, newOrder)
             if (response.data.success) {
                 dispatch({type: 'ORDER_CREATED_SUCCESS', payload: response.data.order})
+                console.log(response.data.order)
+                sendmail(response.data.order)
+                return response.data
+            }
+        } catch (error) {
+            return error.response.data
+                ? error.response.data
+                : { success: false, message: "Server error" };
+        }
+    }
+
+    const sendmail = async order => {
+        try {
+            const response = await axios.post(`${apiUrl}/order/mailing`, order)
+            if (response.data.success) {
+                dispatch({type: 'SEND_MAIL_SUCCESS'})
                 return response.data
             }
         } catch (error) {
@@ -63,9 +79,10 @@ const OrderContextProvider = ({children}) => {
     const OrderContextData = {
         orderState,
         getOrders,
-        userList,
+        getUserOrders,
         findOrder,
         addOrder,
+        sendmail,
         showModal,
         setShowModal,
         showToast,

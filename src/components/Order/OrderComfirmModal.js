@@ -1,41 +1,48 @@
-import {useContext, useEffect } from 'react'
+import {useContext, useEffect, useState } from 'react'
 import { OrderContext } from '../../contexts/OrderContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import Modal from 'react-bootstrap/Modal'
-import {Link} from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import { useHistory } from "react-router-dom";
 
 const OrderComfirmModal = () => {
+    let history = useHistory();
+
     const {
         showModal,
         setShowModal
     } = useContext(OrderContext)
 
+    const {
+		authState: {
+			user
+		}
+	} = useContext(AuthContext)
+
     const closeDialog = () => {
         setShowModal(false)
+        history.push("/")
 	}
 
   return (
     <Modal show={showModal} onHide={closeDialog}>
-        <Modal.Header>
+        <Modal.Header style={{ textAlign: 'center' }}>
             <Modal.Title>
                 <h1>
-                    CONFIRM ORDER
+                    CONFIRM ORDER {user.username.toUpperCase()}
                 </h1>
+                <h4>
+                    Thank you for your purchanse
+                </h4>
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <h1>Thank you for your purchanse</h1>
-            <h3>We have sent an email to your email to confirm your order</h3>
-            <p>Your order will be deliveried to you in 1 week</p>
-            <p>Please prepare money for the price of the order</p>
+            <p>Please check invoice we have been sent to your email</p>
         </Modal.Body>
         <Modal.Footer>
-            <Link to='/'>
-                <Button variant='primary' onClick={closeDialog}>
-                    Confirm
-                </Button>
-            </Link>
+            <Button variant='primary' onClick={closeDialog}>
+                Confirm
+            </Button>
         </Modal.Footer>
     </Modal>
   )

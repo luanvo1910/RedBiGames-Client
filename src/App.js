@@ -18,6 +18,7 @@ import BrandsManage from './views/BrandsManage'
 import CategoriesManage from './views/CategoriesManage'
 import Checkout from './views/Checkout'
 import Orders from './views/Orders'
+import UserOrders from './views/UserOrders'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <AdminRoute exact path='/admin/orders' component={Orders} />
               <Route exact path='/login' render={(props =><Auth {...props} authRoute='login' />)} />
               <Route exact path='/register' render={(props =><Auth {...props} authRoute='register' />)} />
+              <ProtectedRoute exact path='/orders' component={UserOrders} />
               <ProtectedRoute exact path='/checkout' component={Checkout} />
               <PublicRoute exact path='/dashboard' component={Dashboard}/>
             </Switch>

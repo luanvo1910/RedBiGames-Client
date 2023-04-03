@@ -10,10 +10,10 @@ const Orders = () => {
   
   const {
     orderState: {orders, order},
-    getOrders
+    getUserOrders
   } = useContext(OrderContext)
 
-  useEffect(() => {getOrders()}, [])
+  useEffect(() => {getUserOrders()}, [])
 
   let body = null
   if (orders.lenght === 0) {

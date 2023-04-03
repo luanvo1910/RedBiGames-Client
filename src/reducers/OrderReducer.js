@@ -11,6 +11,11 @@ export const orderReducer = (state, action) => {
                 ...state,
                 payload: []
             }
+        case 'SEND_MAIL_SUCCESS':
+            return {
+                ...state,
+                order: null
+            }
         case 'FIND_ORDER':
             return { ...state, order: payload }
         case 'ORDER_CREATED_SUCCESS':
