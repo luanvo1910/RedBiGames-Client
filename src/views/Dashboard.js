@@ -22,6 +22,7 @@ const Dashboard = () => {
   } = useContext(ProductContext)
 
   const {
+    cartState: {cart},
     showToast: { show, message, type },
 	  setShowToast
   } = useContext(CartContext)
@@ -81,7 +82,7 @@ const Dashboard = () => {
     <>
     {body}
     {product !== null && <ProductDetailsModal/>}
-    {user !== null && <CartModal/>}
+    {cart !== null && user !== null && <CartModal/>}
     {conversation !== null && user !== null && <ChatBox/>}
     <Toast
       show={show}

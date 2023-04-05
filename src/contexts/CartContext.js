@@ -8,9 +8,7 @@ export const CartContext = createContext()
 const CartContextProvider = ({children}) => {
     const [cartState, dispatch] = useReducer(cartReducer, {
         cart: null,
-        carts: [],
-        productsId: [],
-        cartLoading: true
+        productsId: []
     })
 
     const [showModal, setShowModal] = useState(false)

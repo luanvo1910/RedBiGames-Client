@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom'
 
 const CartModal = () => {
     const {
-        cartState: {productsId},
+        cartState: {cart, productsId},
         loadCart,
         showModal,
         setShowModal

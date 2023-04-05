@@ -5,19 +5,18 @@ export const cartReducer = (state, action) => {
             return {
                 ...state,
                 cart: payload,
-                productsId: payload.products,
-                cartLoading: false
+                productsId: payload.products
             }
         case 'CART_LOADED_FAIL':
             return {
                 ...state,
-                payload: [],
-                cartLoading: false
+                payload: []
             }
         case 'CART_CREATED_SUCCESS':
            return {
                 ...state,
-                carts: [...state.carts, payload]
+                cart: payload,
+                productsId: payload.products
             }
         case 'CART_ADDED_SUCCESS':
             return {

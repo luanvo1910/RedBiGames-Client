@@ -6,11 +6,7 @@ import Button from 'react-bootstrap/Button'
 
 const ProductDetailsModal = () => {
     const {
-        productState: {product,
-            brands, 
-            categories},
-        getBrands,
-        getCategories,
+        productState: {product},
         showModal,
         setShowModal
     } = useContext(ProductContext)
@@ -22,23 +18,6 @@ const ProductDetailsModal = () => {
     const [showProduct, setShowProduct] = useState(product)
     useEffect(() => setShowProduct(product), [product])
     const { name, description, price, image, brand, category } = showProduct
-
-    useEffect(() =>  {getBrands()}, [])
-    useEffect(() => {getCategories()}, [])
-
-    const brandName = brands.map( b => {
-        if(b._id === brand)
-        {
-            return b.name
-        }
-    })
-
-    const categoryName = categories.map( c => {
-        if(c._id === category)
-        {
-            return c.category
-        }
-    })
 
     const closeDialog = () => {
         setShowModal(false)
@@ -69,7 +48,7 @@ const ProductDetailsModal = () => {
                 </div>
                 <div>
                     <h5>
-                        Its a {categoryName} from {brandName}  
+                        Its a {product.category.category} from {product.brand.name}  
                     </h5>
                     <p>
                         {description}

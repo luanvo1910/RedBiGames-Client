@@ -27,7 +27,6 @@ const ChatContextProvider = ({children}) => {
     const findConversation = async conversationId =>{
         const conversation = chatState.conversations.find(conversation => conversation._id === conversationId)
 		dispatch({ type: 'FIND_CHAT', payload: conversation })
-        console.log(conversation)
     }
 
     const loadConversation = async () => {
@@ -35,7 +34,6 @@ const ChatContextProvider = ({children}) => {
             const response = await axios.get(`${apiUrl}/chat`)
             if (response.data.success) {
                 dispatch({type: 'CONVERSATION_LOADED_SUCCESS', payload: response.data.conversation})
-                console.log(response.data.conversation)
             }
         } catch (error) {
             dispatch({type: 'CONVERSATION_LOADED_FAIL'})
@@ -47,7 +45,6 @@ const ChatContextProvider = ({children}) => {
             const response = await axios.post(`${apiUrl}/chat/message`, message)
             if (response.data.success) {
                 dispatch({type: 'MESSAGE_CREATED_SUCCESS', payload: response.data.conversation})
-                console.log(response.data.conversation)
             }
         } catch (error) {
             dispatch({type: 'MESSAGE_CREATED_FAIL'})
