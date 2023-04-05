@@ -56,24 +56,19 @@ const Checkout = () => {
         products: [],
     })
 
-    const [email, setEmail] = useState();
-    const [address, setAddress] = useState();
+    const {_id, email, address } = checkoutForm
 
-	const onChangeEmail = event =>
-        setEmail(event.target.value)
-
-    const onChangeAddress = event =>
-        setAddress(event.target.value)
+	const onChangeCheckout = event =>
+        setCheckoutForm({ 
+            ...checkoutForm, 
+            userId: user._id,
+            total: totalPrice,
+            products: productsId,
+            [event.target.name]: event.target.value
+        })
 
     const onSubmit = async (event) => {
         if (totalPrice > 0){
-            setCheckoutForm({ ...checkoutForm,
-                userId: user._id,
-                total: totalPrice,
-                email: email,
-                address: address,
-                products: productsId
-            })
             event.preventDefault()
             try {
                 console.log(checkoutForm)
@@ -110,7 +105,7 @@ const Checkout = () => {
                     placeholder='Email' 
                     name='email'
                     value={email || ''}
-                    onChange={onChangeEmail} 
+                    onChange={onChangeCheckout} 
                     required/>
             </Form.Group>
             <Form.Group>
@@ -120,7 +115,7 @@ const Checkout = () => {
                     placeholder='Address - house number, street, district, city' 
                     name='address'
                     value={address || ''}
-                    onChange={onChangeAddress} 
+                    onChange={onChangeCheckout} 
                     required/>
             </Form.Group>
             <Button 

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
-import AlertMessage from '../layout/AlertMessage'
+import AlertMessage from '../Layout/AlertMessage'
 
 const Register = () => {
     const { registerUser } = useContext(AuthContext)

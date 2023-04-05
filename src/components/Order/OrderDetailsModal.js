@@ -3,7 +3,7 @@ import { OrderContext } from '../../contexts/OrderContext'
 import Modal from 'react-bootstrap/Modal'
 import Col from 'react-bootstrap/Col'
 import SingleProduct from './ProductInOrder'
-import Moment from 'react-moment';
+import Moment from 'react-moment'
 
 const ProductDetailsModal = () => {
     const {

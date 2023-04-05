@@ -29,7 +29,7 @@ const NavBar = () => {
 			<>	
 				<Nav className="navbar bg-light">
 					<div className="container-fluid">
-						<span className="navbar-brand mb-0 h1">Admin {user.username}</span>
+						<span className="navbar-brand mb-0 h1">Admin</span>
 					</div>
 				</Nav>
 				<Nav className="position-absolute top-10 end-0">
@@ -152,6 +152,18 @@ const NavBar = () => {
 					as={Link}
 					>
 					Orders
+				</Nav.Link>
+			</Button>
+			<Button
+				className="mx-1 my-2 btn btn-primary"
+				type="button"
+				>
+				<Nav.Link
+					className='font-monospace fw-bolder fs-2 text-white mx-2'
+					to='/admin/conversations'
+					as={Link}
+					>
+					Conversations
 				</Nav.Link>
 			</Button>
 		</>

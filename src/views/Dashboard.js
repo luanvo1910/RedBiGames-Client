@@ -1,17 +1,19 @@
 import { ProductContext } from "../contexts/ProductContext"
 import { AuthContext } from "../contexts/AuthContext"
 import { CartContext } from "../contexts/CartContext"
+import { ChatContext } from "../contexts/ChatContext"
 import { useContext, useEffect } from "react"
 import Spinner from 'react-bootstrap/Spinner'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Toast from 'react-bootstrap/Toast'
-import SingleProduct from '../components/products/Product'
-import ProductDetailsModal from '../components/products/ProductDetailsModal'
-import CartModal from '../components/cart/CartModal'
+import SingleProduct from '../components/Products/Product'
+import ProductDetailsModal from '../components/Products/ProductDetailsModal'
+import CartModal from '../components/Cart/CartModal'
+import ChatBox from '../components/Conversations/ChatBox'
+import Chat from '../components/Layout/Chat'
 
 const Dashboard = () => {
-  
   const {
     productState: {product, products, productLoading},
     getProducts,
@@ -23,6 +25,10 @@ const Dashboard = () => {
     showToast: { show, message, type },
 	  setShowToast
   } = useContext(CartContext)
+
+  const {
+    chatState: {conversation},
+  } = useContext(ChatContext)
 
   const {
 		authState: {
@@ -53,6 +59,7 @@ const Dashboard = () => {
         <h1>Welcome to RedBi games</h1>
         <h3>No products has been found</h3>
       </div>
+      <Chat/>
       </>
     )
   } else {
@@ -65,6 +72,7 @@ const Dashboard = () => {
           </Col>
         ))}
       </Row>
+      <Chat/>
       </>
     )
   }
@@ -74,6 +82,7 @@ const Dashboard = () => {
     {body}
     {product !== null && <ProductDetailsModal/>}
     {user !== null && <CartModal/>}
+    {conversation !== null && user !== null && <ChatBox/>}
     <Toast
       show={show}
       style={{ position: 'fixed', top: '20%', right: '10px' }}

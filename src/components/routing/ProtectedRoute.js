@@ -3,7 +3,7 @@ import {Route, Redirect} from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 import Spinner from 'react-bootstrap/Spinner'
-import NavbarMenu from '../layout/NavBar'
+import NavbarMenu from '../Layout/NavBar'
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
 	const {

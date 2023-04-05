@@ -6,9 +6,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip  from 'react-bootstrap/Tooltip'
 import Toast from 'react-bootstrap/Toast'
 import addIcon from '../assets/plus-circle-fill.svg'
-import SingleBrand from '../components/brands/Brand'
-import AddBrandModal from '../components/brands/AddBrandModal'
-import UpdateBrandModal from "../components/brands/UpdateBrandModal"
+import SingleBrand from '../components/Brands/Brand'
+import AddBrandModal from '../components/Brands/AddBrandModal'
+import UpdateBrandModal from "../components/Brands/UpdateBrandModal"
 
 const Dashboard = () => {
   

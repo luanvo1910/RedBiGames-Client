@@ -1,6 +1,6 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
-import NavbarMenu from '../layout/NavBar'
+import NavbarMenu from '../Layout/NavBar'
 
 const PublicRoute = ({ component: Component, ...rest }) => {
 

@@ -8,9 +8,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip  from 'react-bootstrap/Tooltip'
 import Toast from 'react-bootstrap/Toast'
 import addIcon from '../assets/plus-circle-fill.svg'
-import SingleProduct from '../components/products/ProductManage'
-import AddProductModal from '../components/products/AddProductModal'
-import UpdateProductModal from "../components/products/UpdateProductModal"
+import SingleProduct from '../components/Products/ProductManage'
+import AddProductModal from '../components/Products/AddProductModal'
+import UpdateProductModal from "../components/Products/UpdateProductModal"
 
 const Dashboard = () => {
   
@@ -40,6 +40,11 @@ const Dashboard = () => {
         <h1>Welcome to RedBi games</h1>
         <h3>No produucts has been found</h3>
       </div>
+      <OverlayTrigger placement='left' overlay={<Tooltip>Add new product</Tooltip>}>
+        <Button className='btn-floating' onClick={setShowModal.bind(this, true)}>
+            <img src={addIcon} alt="add product" witdh='60' height='60'/>
+        </Button>
+      </OverlayTrigger>
       </>
     )
   } else {

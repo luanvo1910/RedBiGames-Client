@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import {AuthContext} from '../../contexts/AuthContext'
-import AlertMessage from '../layout/AlertMessage'
+import AlertMessage from '../Layout/AlertMessage'
 
 const Login = () => {
 

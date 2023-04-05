@@ -1,8 +1,6 @@
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import {useContext, useState, useEffect} from 'react'
 import { ProductContext } from '../../contexts/ProductContext'
 

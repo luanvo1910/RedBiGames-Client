@@ -6,9 +6,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip  from 'react-bootstrap/Tooltip'
 import Toast from 'react-bootstrap/Toast'
 import addIcon from '../assets/plus-circle-fill.svg'
-import SingleCategory from '../components/categories/Category'
-import AddCategoryModal from '../components/categories/AddCategoryModal'
-import UpdateCategoryModal from "../components/categories/UpdateCategoryModal"
+import SingleCategory from '../components/Categories/Category'
+import AddCategoryModal from '../components/Categories/AddCategoryModal'
+import UpdateCategoryModal from "../components/Categories/UpdateCategoryModal"
 
 const Dashboard = () => {
   
