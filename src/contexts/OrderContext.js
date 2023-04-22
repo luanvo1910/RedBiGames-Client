@@ -46,13 +46,17 @@ const OrderContextProvider = ({children}) => {
 		dispatch({ type: 'FIND_ORDER', payload: order })
 	}
 
+    const saveOrder = Order => {
+		dispatch({ type: 'SAVE_ORDER', payload: Order })
+	}
+
     const addOrder = async newOrder => {
         try {
             const response = await axios.post(`${apiUrl}/order/add`, newOrder)
             if (response.data.success) {
                 dispatch({type: 'ORDER_CREATED_SUCCESS', payload: response.data.order})
-                console.log(response.data.order)
                 sendmail(response.data.order)
+                minunProduct(response.data.order)
                 return response.data
             }
         } catch (error) {
@@ -76,13 +80,29 @@ const OrderContextProvider = ({children}) => {
         }
     }
 
+    const minunProduct = async order => {
+        try {
+            const response = await axios.put(`${apiUrl}/order/minunProduct`, order)
+            if (response.data.success) {
+                dispatch({type: 'SEND_MAIL_SUCCESS'})
+                return response.data
+            }
+        } catch (error) {
+            return error.response.data
+                ? error.response.data
+                : { success: false, message: "Server error" };
+        }
+    }
+
     const OrderContextData = {
         orderState,
         getOrders,
         getUserOrders,
         findOrder,
+        saveOrder,
         addOrder,
         sendmail,
+        minunProduct,
         showModal,
         setShowModal,
         showToast,

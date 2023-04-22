@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom'
 
 const CartModal = () => {
     const {
-        cartState: {cart, productsId},
+        cartState: {productsId},
         loadCart,
         showModal,
         setShowModal
@@ -66,11 +66,11 @@ const CartModal = () => {
             <Modal.Footer>
                 <Row>
                     <h3>
-                        Total: {total.toLocaleString()} VND
+                        Total: {total.toLocaleString()} USD
                     </h3>
                 </Row>
                 <Link to='/checkout'>
-                    <Button variant='secondary'>
+                    <Button variant='secondary' onClick={closeDialog}>
                         Checkout
                     </Button>
                 </Link>

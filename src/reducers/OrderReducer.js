@@ -18,6 +18,8 @@ export const orderReducer = (state, action) => {
             }
         case 'FIND_ORDER':
             return { ...state, order: payload }
+        case 'SAVE_ORDER':
+            return { ...state, order: payload }
         case 'ORDER_CREATED_SUCCESS':
             return {
                 ...state,

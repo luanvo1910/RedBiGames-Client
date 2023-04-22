@@ -21,6 +21,7 @@ import Checkout from './views/Checkout'
 import Orders from './views/Orders'
 import UserOrders from './views/UserOrders'
 import Conversations from './views/AdminConversations'
+import Payment from './views/Payment';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                 <Route exact path='/register' render={(props =><Auth {...props} authRoute='register' />)} />
                 <ProtectedRoute exact path='/orders' component={UserOrders} />
                 <ProtectedRoute exact path='/checkout' component={Checkout} />
+                <ProtectedRoute exact path='/payment' component={Payment} />
                 <PublicRoute exact path='/dashboard' component={Dashboard}/>
               </Switch>
             </Router>

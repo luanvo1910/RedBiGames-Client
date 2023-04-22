@@ -17,15 +17,17 @@ const ProductDetailsModal = () => {
 
     const [showProduct, setShowProduct] = useState(product)
     useEffect(() => setShowProduct(product), [product])
-    const { name, description, price, image, brand, category } = showProduct
+    const { name, description, price, image, stock, brand, category } = showProduct
 
     const closeDialog = () => {
         setShowModal(false)
 	}
 
     const addProductToCart = product => {
-        addProduct(product)
-        setShowModal(false)
+        if (stock > 0) {
+            addProduct(product)
+            setShowModal(false)
+        }
     }
 
     return (

@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import SingleProduct from '../components/Order/ProductInOrder'
-import OrderComfirm from '../components/Order/OrderComfirmModal'
+import { useHistory } from "react-router-dom";
 
 const Checkout = () => {
     const {
@@ -27,11 +27,10 @@ const Checkout = () => {
     } = useContext(ProductContext)
 
     const {
-        orderState: {order},
-        addOrder,
-        setShowModal,
-        setShowToast
+        saveOrder
     } = useContext(OrderContext)
+
+    let history = useHistory();
 
     let totalPrice = 0
 
@@ -72,9 +71,8 @@ const Checkout = () => {
             event.preventDefault()
             try {
                 console.log(checkoutForm)
-                const {success, message} = await addOrder(checkoutForm)
-                setShowModal(true)
-                setShowToast({ show: true, message, type: success ? 'success' : 'danger' })
+                saveOrder(checkoutForm)
+                history.push("/payment")
             } catch (error) {
                 console.log(error)
             }
@@ -83,7 +81,6 @@ const Checkout = () => {
 
     return (
         <>
-        {order !== null && <OrderComfirm/>}
         <h1>CHECKOUT {user.username.toUpperCase()} ORDER</h1>
         <Row>
             {productsInCart.map(product => (
@@ -94,7 +91,7 @@ const Checkout = () => {
         </Row>
         <Row>
             <h3>
-                Total: {totalPrice.toLocaleString()} VND
+                Total: {totalPrice.toLocaleString()} USD
             </h3>
         </Row>
         <Form className='my-4' onSubmit={onSubmit}>
